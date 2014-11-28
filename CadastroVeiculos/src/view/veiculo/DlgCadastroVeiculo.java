@@ -1,4 +1,4 @@
-package Apresentacao;
+package view.veiculo;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
