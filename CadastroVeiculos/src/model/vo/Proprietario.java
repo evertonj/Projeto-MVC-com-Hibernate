@@ -5,10 +5,15 @@
  */
 package model.vo;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  *
  * @author Everton Spindola
  */
+@Entity
+@Table (name = "propritario")
 public class Proprietario {
     private int id;
     private String nome;
