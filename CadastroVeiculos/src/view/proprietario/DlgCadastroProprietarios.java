@@ -5,6 +5,8 @@
  */
 package view.proprietario;
 
+import javax.swing.JButton;
+
 /**
  *
  * @author Larissa
@@ -330,6 +332,34 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+    }
+
+    public JButton getBtAtualizar() {
+        return btAtualizar;
+    }
+
+    public JButton getBtCancelar() {
+        return btCancelar;
+    }
+
+    public JButton getBtExcluir() {
+        return btExcluir;
+    }
+
+    public JButton getBtFechar() {
+        return btFechar;
+    }
+
+    public JButton getBtNovo() {
+        return btNovo;
+    }
+
+    public JButton getBtPesquisar() {
+        return btPesquisar;
+    }
+
+    public JButton getBtSalvar() {
+        return btSalvar;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
