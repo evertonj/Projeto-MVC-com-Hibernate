@@ -17,8 +17,24 @@ public class Proprietario {
     private String email;
     private Endereco endereco;
 
-    public Proprietario() {
+    public Proprietario(int id, String nome, String fone, String cpf, String email, Endereco endereco) {
+        this.id = id;
+        this.nome = nome;
+        this.fone = fone;
+        this.cpf = cpf;
+        this.email = email;
+        this.endereco = endereco;
     }
+
+    public Proprietario(String nome, String fone, String cpf, String email, Endereco endereco) {
+        this.nome = nome;
+        this.fone = fone;
+        this.cpf = cpf;
+        this.email = email;
+        this.endereco = endereco;
+    }
+
+    
 
     public int getId() {
         return id;

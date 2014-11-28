@@ -18,9 +18,26 @@ public class Endereco {
     private String estado;
     private String cidade;
 
-    public Endereco() {
-        
+    public Endereco(int id, String cep, String logradouro, String numero, String bairro, String estado, String cidade) {
+        this.id = id;
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.estado = estado;
+        this.cidade = cidade;
     }
+
+    public Endereco(String cep, String logradouro, String numero, String bairro, String estado, String cidade) {
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.estado = estado;
+        this.cidade = cidade;
+    }
+
+    
 
     public String getCep() {
         return cep;
