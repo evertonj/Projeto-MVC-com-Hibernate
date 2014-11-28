@@ -9,7 +9,9 @@ package model.vo;
  *
  * @author Everton Spindola
  */
+
 public class Endereco {
+    
     private int id;
     private String cep;
     private String logradouro;
