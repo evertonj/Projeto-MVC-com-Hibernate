@@ -9,6 +9,8 @@ package model.vo;
  *
  * @author Everton Spindola
  */
-public enum TipoVeiculo {
-    
+public enum EnumTipoVeiculo {
+    Automóvel,
+    Motocicleta,
+    Caminhão        
 }
