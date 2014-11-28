@@ -7,20 +7,41 @@ package model.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
  *
  * @author Everton Spindola
  */
+@Entity
+@Table(name = "proprietarios")
 public class Proprietario {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "id_proprietario")
     private int id;
+
+    @Column(name = "nome")
     private String nome;
+
+    @Column(name = "fone")
     private String fone;
+
+    @Column(name = "cpf")
     private String cpf;
+
+    @Column(name = "email")
     private String email;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_proprietario")
+
     private Endereco endereco;
 
     public Proprietario(int id, String nome, String fone, String cpf, String email, Endereco endereco) {
@@ -39,8 +60,6 @@ public class Proprietario {
         this.email = email;
         this.endereco = endereco;
     }
-
-    
 
     public int getId() {
         return id;
@@ -89,6 +108,5 @@ public class Proprietario {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-    
-    
+
 }
