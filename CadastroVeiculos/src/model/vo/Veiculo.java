@@ -6,19 +6,51 @@
 package model.vo;
 
 import java.util.Calendar;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author Everton Spindola
  */
+@Entity
+@Table(name = "veiculos")
 public class Veiculo {
+    
+    @Id
+    @GeneratedValue
+    @Column(name = "id_veiculo")
     private int id;
+    
+    @Column(name = "marca")
     private String marca;
+    
+    @Column(name = "modelo")
     private String modelo;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "anoDeFabricacao")
     private int anoDeFabricacao;
+    
+    @Column(name = "valor")
     private double valor;
+    
+    @Column(name = "dataCadastro")
     private Calendar dataCadastro;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_proprietario")
     private Proprietario propriatario;
+    
+    @Column(name = "tipoVeiculo")
     private EnumTipoVeiculo tipoVeiculo;
 
     public Veiculo(int id, String marca, String modelo, int anoDeFabricacao, double valor, Calendar dataCadastro, Proprietario propriatario, EnumTipoVeiculo tipoVeiculo) {
