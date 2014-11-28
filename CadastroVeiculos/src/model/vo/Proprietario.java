@@ -15,6 +15,7 @@ public class Proprietario {
     private String fone;
     private String cpf;
     private String email;
+    private Endereco endereco;
 
     public Proprietario() {
     }
@@ -57,6 +58,14 @@ public class Proprietario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
     
     
