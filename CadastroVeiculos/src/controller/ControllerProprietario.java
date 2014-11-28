@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package Controller;
+package controller;
 
 /**
  *
  * @author aalano
  */
-public class ControllerVeiculo {
+public class ControllerProprietario {
     
 }
