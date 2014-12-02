@@ -23,10 +23,6 @@ public class Principal {
                 "evertonspindola@gmail.com");
         Endereco end = new Endereco("88512180", "Jorge Neves Vieira", "93", "Santo Antonio", "SC", "Lages");
         prop.setEndereco(end);
-        try {
-            dao.adicionar(prop, end);
-        } catch (SQLException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dao.adicionar(prop);
     }
 }

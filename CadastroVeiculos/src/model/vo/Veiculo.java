@@ -19,6 +19,9 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Veiculo {
+
+    public Veiculo() {
+    }
     
     @Id
     @GeneratedValue

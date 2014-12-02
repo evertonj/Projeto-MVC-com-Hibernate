@@ -6,6 +6,7 @@
 package model.vo;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ public class Proprietario {
     @Id
     @GeneratedValue
     @Column(name = "id_proprietario")
-    private int id;
+    private Long id;
 
     @Column(name = "nome")
     private String nome;
@@ -37,11 +38,12 @@ public class Proprietario {
     private String email;
 
     
-    @OneToOne
-    @JoinColumn(name = "prop_endereco")
+   // @OneToOne
+   // @JoinColumn(name = "id_endereco")
+    @Embedded
     private Endereco endereco;
 
-    public Proprietario(int id, String nome, String fone, String cpf, String email){//, Endereco endereco) {
+    public Proprietario(Long id, String nome, String fone, String cpf, String email){//, Endereco endereco) {
         this.id = id;
         this.nome = nome;
         this.fone = fone;
@@ -58,11 +60,11 @@ public class Proprietario {
         //this.endereco = endereco;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

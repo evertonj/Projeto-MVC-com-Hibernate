@@ -5,53 +5,40 @@
  */
 package model.vo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 /**
  *
  * @author Everton Spindola
  */
 
-@Entity
+//@Entity
 public class Endereco {
+
+    public Endereco() {
+    }
     
    
-    @Id
-    @GeneratedValue
-    @Column(name = "id_endereco")
-    private int id;
+//    @Id
+//    @GeneratedValue
+//    @Column(name = "id_endereco")
+//    private Long id;
     
-    @Column(name = "cep")
+ //   @Column(name = "cep")
     private String cep;
     
-    @Column(name = "logradouro")
+ //   @Column(name = "logradouro")
     private String logradouro;
     
-    @Column(name = "numero")
+ //   @Column(name = "numero")
     private String numero;
     
-    @Column(name = "bairro")
+ //   @Column(name = "bairro")
     private String bairro;
     
-    @Column(name = "estado")
+//    @Column(name = "estado")
     private String estado;
     
-    @Column(name = "cidade")
+ //   @Column(name = "cidade")
     private String cidade;
-
-    public Endereco(int id, String cep, String logradouro, String numero, String bairro, String estado, String cidade) {
-        this.id = id;
-        this.cep = cep;
-        this.logradouro = logradouro;
-        this.numero = numero;
-        this.bairro = bairro;
-        this.estado = estado;
-        this.cidade = cidade;
-    }
 
     public Endereco(String cep, String logradouro, String numero, String bairro, String estado, String cidade) {
         this.cep = cep;
@@ -61,6 +48,8 @@ public class Endereco {
         this.estado = estado;
         this.cidade = cidade;
     }
+
+    
 
     
 
@@ -112,14 +101,9 @@ public class Endereco {
         this.cidade = cidade;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
     
+
+  
     
     
 }
