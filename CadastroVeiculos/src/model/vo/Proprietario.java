@@ -7,19 +7,16 @@ package model.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author Everton Spindola
  */
 @Entity
-@Table(name = "proprietarios")
 public class Proprietario {
 
     @Id
@@ -39,26 +36,26 @@ public class Proprietario {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_proprietario")
-
+    
+    @OneToOne
+    @JoinColumn(name = "prop_endereco")
     private Endereco endereco;
 
-    public Proprietario(int id, String nome, String fone, String cpf, String email, Endereco endereco) {
+    public Proprietario(int id, String nome, String fone, String cpf, String email){//, Endereco endereco) {
         this.id = id;
         this.nome = nome;
         this.fone = fone;
         this.cpf = cpf;
         this.email = email;
-        this.endereco = endereco;
+        //this.endereco = endereco;
     }
 
-    public Proprietario(String nome, String fone, String cpf, String email, Endereco endereco) {
+    public Proprietario(String nome, String fone, String cpf, String email){//, Endereco endereco) {
         this.nome = nome;
         this.fone = fone;
         this.cpf = cpf;
         this.email = email;
-        this.endereco = endereco;
+        //this.endereco = endereco;
     }
 
     public int getId() {
