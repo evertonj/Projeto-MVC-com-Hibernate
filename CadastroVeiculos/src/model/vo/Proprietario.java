@@ -10,14 +10,17 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Everton Spindola
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Proprietario.findAll", query = "SELECT p FROM Proprietario p")
+})
 public class Proprietario {
 
     @Id
@@ -37,6 +40,10 @@ public class Proprietario {
     @Column(name = "email")
     private String email;
 
+    public Proprietario() {
+    }
+
+    
     
    // @OneToOne
    // @JoinColumn(name = "id_endereco")

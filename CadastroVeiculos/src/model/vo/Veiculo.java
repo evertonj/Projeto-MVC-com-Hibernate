@@ -6,11 +6,14 @@
 package model.vo;
 
 import java.util.Calendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 /**
@@ -18,6 +21,9 @@ import javax.persistence.OneToOne;
  * @author Everton Spindola
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Veiculo.finAll", query = "SELECT v FROM veiculos v")
+})
 public class Veiculo {
 
     public Veiculo() {
@@ -26,7 +32,7 @@ public class Veiculo {
     @Id
     @GeneratedValue
     @Column(name = "id_veiculo")
-    private int id;
+    private Long id;
     
     @Column(name = "marca")
     private String marca;
@@ -43,45 +49,44 @@ public class Veiculo {
     @Column(name = "dataCadastro")
     private Calendar dataCadastro;
     
-    @OneToOne
-    @JoinColumn(name = "veiculo_proprietario")
-    private Proprietario propriatario;
+    @OneToOne(cascade = CascadeType.MERGE)
+    private Proprietario proprietario;
     
     @Column(name = "tipoVeiculo")
     private EnumTipoVeiculo tipoVeiculo;
 
-    public Veiculo(int id, String marca, String modelo, int anoDeFabricacao, double valor, Calendar dataCadastro, Proprietario propriatario, EnumTipoVeiculo tipoVeiculo) {
+    public Veiculo(Long id, String marca, String modelo, int anoDeFabricacao, double valor, Calendar dataCadastro, Proprietario proprietario, EnumTipoVeiculo tipoVeiculo) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
         this.anoDeFabricacao = anoDeFabricacao;
         this.valor = valor;
         this.dataCadastro = dataCadastro;
-        this.propriatario = propriatario;
+        this.proprietario = proprietario;
         this.tipoVeiculo = tipoVeiculo;
     }
 
-    public Veiculo(String marca, String modelo, int anoDeFabricacao, double valor, Calendar dataCadastro, Proprietario propriatario, EnumTipoVeiculo tipoVeiculo) {
+    public Veiculo(String marca, String modelo, int anoDeFabricacao, double valor, Calendar dataCadastro, Proprietario proprietario, EnumTipoVeiculo tipoVeiculo) {
         this.marca = marca;
         this.modelo = modelo;
         this.anoDeFabricacao = anoDeFabricacao;
         this.valor = valor;
         this.dataCadastro = dataCadastro;
-        this.propriatario = propriatario;
+        this.proprietario = proprietario;
         this.tipoVeiculo = tipoVeiculo;
     }
 
     /**
      * @return the id
      */
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -156,17 +161,17 @@ public class Veiculo {
     }
 
     /**
-     * @return the propriatario
+     * @return the proprietario
      */
     public Proprietario getPropriatario() {
-        return propriatario;
+        return proprietario;
     }
 
     /**
-     * @param propriatario the propriatario to set
+     * @param proprietario the proprietario to set
      */
-    public void setPropriatario(Proprietario propriatario) {
-        this.propriatario = propriatario;
+    public void setPropriatario(Proprietario proprietario) {
+        this.proprietario = proprietario;
     }
 
     /**

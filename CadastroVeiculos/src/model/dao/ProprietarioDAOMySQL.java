@@ -10,7 +10,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import model.vo.Endereco;
+import javax.persistence.Query;
 import model.vo.Proprietario;
 
 /**
@@ -24,25 +24,22 @@ public class ProprietarioDAOMySQL implements IDAO<Proprietario>{
     
     @Override
     public void adicionar(Proprietario t) {
-    //    EntityManagerFactory factory = Persistence.createEntityManagerFactory("veiculosapp");
-    //   EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
         manager.persist(t);
         manager.getTransaction().commit();
-        manager.close();
-        factory.close();
     }
 
     
 
     @Override
-    public Proprietario recuperar(int id) {
-        return null;
+    public Proprietario recuperar(Long id) {
+        return manager.find(Proprietario.class, id);
     }
 
     @Override
     public List<Proprietario> listarTodos() {
-        return null;
+        Query query = manager.createNamedQuery("Proprietario.findAll");
+        return query.getResultList();
     }
 
     
@@ -65,11 +62,15 @@ public class ProprietarioDAOMySQL implements IDAO<Proprietario>{
 
     @Override
     public void alterar(Proprietario t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        manager.getTransaction().begin();
+        manager.merge(t);
+        manager.getTransaction().commit();
     }
 
     @Override
     public void remover(Proprietario t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        manager.getTransaction().begin();
+        manager.remove(t);
+        manager.getTransaction().commit();
     }
 }

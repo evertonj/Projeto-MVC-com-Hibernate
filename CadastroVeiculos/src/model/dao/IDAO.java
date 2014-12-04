@@ -16,7 +16,7 @@ import java.util.List;
 public interface IDAO<T> {
     public void adicionar(T t) throws SQLException;
     public void alterar(T t)throws SQLException;
-    public T recuperar(int id)throws SQLException;
+    public T recuperar(Long id)throws SQLException;
     public List<T> listarTodos()throws SQLException;
     public void remover(T t)throws SQLException;
 }
