@@ -11,10 +11,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 
 /**
  *
@@ -22,7 +22,7 @@ import javax.persistence.OneToOne;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Veiculo.finAll", query = "SELECT v FROM veiculos v")
+    @NamedQuery(name = "Veiculo.finAll", query = "SELECT v FROM veiculo v")
 })
 public class Veiculo {
 

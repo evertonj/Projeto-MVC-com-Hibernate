@@ -10,8 +10,10 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
+
 
 /**
  *
@@ -50,21 +52,19 @@ public class Proprietario {
     @Embedded
     private Endereco endereco;
 
-    public Proprietario(Long id, String nome, String fone, String cpf, String email){//, Endereco endereco) {
+    public Proprietario(Long id, String nome, String fone, String cpf, String email){
         this.id = id;
         this.nome = nome;
         this.fone = fone;
         this.cpf = cpf;
         this.email = email;
-        //this.endereco = endereco;
     }
 
-    public Proprietario(String nome, String fone, String cpf, String email){//, Endereco endereco) {
+    public Proprietario(String nome, String fone, String cpf, String email) {
         this.nome = nome;
         this.fone = fone;
         this.cpf = cpf;
         this.email = email;
-        //this.endereco = endereco;
     }
 
     public Long getId() {

@@ -89,19 +89,19 @@ public class DlgCadastroVeiculo extends javax.swing.JDialog {
 
         tfDataCadastro.setEditable(false);
 
-        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417126238_find.png"))); // NOI18N
+        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417126238_find.png"))); // NOI18N
 
-        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417126804_folder_closed-new.png"))); // NOI18N
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417126804_folder_closed-new.png"))); // NOI18N
 
-        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417126973_save_accept.png"))); // NOI18N
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417126973_save_accept.png"))); // NOI18N
 
-        btAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417127183_arrow-refresh.png"))); // NOI18N
+        btAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417127183_arrow-refresh.png"))); // NOI18N
 
-        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417127053_folder_closed-delete.png"))); // NOI18N
+        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417127053_folder_closed-delete.png"))); // NOI18N
 
-        btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417127323_cancel.png"))); // NOI18N
+        btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417127323_cancel.png"))); // NOI18N
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417127410_Erase.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417127410_Erase.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

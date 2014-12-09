@@ -6,6 +6,7 @@
 package view.proprietario;
 
 import javax.swing.JButton;
+import javax.swing.JTextField;
 
 /**
  *
@@ -41,7 +42,6 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
         tfCPF = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tfEmail = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         tfCEP = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
         btNovo = new javax.swing.JButton();
@@ -51,12 +51,11 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
         btCancelar = new javax.swing.JButton();
         btFechar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        tfEndereco = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         tfCidade = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfBairro = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         tfEstado = new javax.swing.JTextField();
         tfNumero = new javax.swing.JTextField();
@@ -77,36 +76,19 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
 
         jLabel5.setText("E-mail:");
 
-        jLabel6.setText("Endereço:");
+        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417126238_find.png"))); // NOI18N
 
-        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417126238_find.png"))); // NOI18N
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417126804_folder_closed-new.png"))); // NOI18N
 
-        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417126804_folder_closed-new.png"))); // NOI18N
-        btNovo.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                btNovoMouseDragged(evt);
-            }
-        });
-        btNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNovoActionPerformed(evt);
-            }
-        });
+        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417126973_save_accept.png"))); // NOI18N
 
-        btSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417126973_save_accept.png"))); // NOI18N
+        btAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417127183_arrow-refresh.png"))); // NOI18N
 
-        btAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417127183_arrow-refresh.png"))); // NOI18N
-        btAtualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAtualizarActionPerformed(evt);
-            }
-        });
+        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417127053_folder_closed-delete.png"))); // NOI18N
 
-        btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417127053_folder_closed-delete.png"))); // NOI18N
+        btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417127323_cancel.png"))); // NOI18N
 
-        btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417127323_cancel.png"))); // NOI18N
-
-        btFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/1417127410_Erase.png"))); // NOI18N
+        btFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417127410_Erase.png"))); // NOI18N
 
         jLabel7.setText("CEP:");
 
@@ -117,18 +99,6 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
         jLabel10.setText("Bairro:");
 
         jLabel11.setText("Número:");
-
-        tfEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfEstadoActionPerformed(evt);
-            }
-        });
-
-        tfNumero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfNumeroActionPerformed(evt);
-            }
-        });
 
         jLabel12.setText("Logradouro:");
 
@@ -157,7 +127,6 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
                             .addComponent(jLabel11)
                             .addComponent(jLabel7)
                             .addComponent(jLabel12)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel10)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
@@ -169,8 +138,7 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(tfCEP)
-                                .addComponent(tfEndereco)
-                                .addComponent(jTextField1)
+                                .addComponent(tfBairro)
                                 .addComponent(tfCidade)
                                 .addComponent(tfEstado)
                                 .addComponent(tfEmail)
@@ -183,7 +151,7 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
                                 .addComponent(tfNumero)
                                 .addComponent(tfLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 14, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +189,7 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -231,10 +199,6 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
                     .addComponent(jLabel12)
                     .addComponent(tfLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
@@ -262,32 +226,12 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btAtualizarActionPerformed
-
-    private void btNovoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btNovoMouseDragged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btNovoMouseDragged
-
-    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btNovoActionPerformed
-
-    private void tfEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfEstadoActionPerformed
-
-    private void tfNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNumeroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfNumeroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -334,6 +278,50 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
         });
     }
 
+    public JTextField getTfBairro() {
+        return tfBairro;
+    }
+  
+    public JTextField getTfCEP() {
+        return tfCEP;
+    }
+
+    public JTextField getTfCPF() {
+        return tfCPF;
+    }
+
+    public JTextField getTfCidade() {
+        return tfCidade;
+    }
+
+    public JTextField getTfEmail() {
+        return tfEmail;
+    }
+
+    public JTextField getTfEstado() {
+        return tfEstado;
+    }
+
+    public JTextField getTfId() {
+        return tfId;
+    }
+
+    public JTextField getTfLogradouro() {
+        return tfLogradouro;
+    }
+
+    public JTextField getTfNome() {
+        return tfNome;
+    }
+
+    public JTextField getTfNumero() {
+        return tfNumero;
+    }
+
+    public JTextField getTfTelefone() {
+        return tfTelefone;
+    }
+
     public JButton getBtAtualizar() {
         return btAtualizar;
     }
@@ -378,17 +366,15 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfCEP;
     private javax.swing.JTextField tfCPF;
     private javax.swing.JTextField tfCidade;
     private javax.swing.JTextField tfEmail;
-    private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfEstado;
     private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfLogradouro;

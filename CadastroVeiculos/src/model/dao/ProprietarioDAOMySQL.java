@@ -42,24 +42,6 @@ public class ProprietarioDAOMySQL implements IDAO<Proprietario>{
         return query.getResultList();
     }
 
-    
-
-//    @Override
-//    public void adicionar(Proprietario p, Endereco e) throws SQLException {
-//        manager.getTransaction().begin();
-//        manager.persist(p);
-//        manager.persist(e);
-//        manager.getTransaction().commit();
-//        manager.close();
-//        factory.close();
-//    }
-//
-//    @Override
-//    public void alterar(Proprietario p, Endereco e) throws SQLException {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//    
-
     @Override
     public void alterar(Proprietario t) throws SQLException {
         manager.getTransaction().begin();

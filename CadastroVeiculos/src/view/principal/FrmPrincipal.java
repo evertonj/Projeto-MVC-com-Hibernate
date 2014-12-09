@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 
-package Apresentacao;
-
-import Apresentacao.DlgCadastroVeiculo;
+package view.principal;
 
 /**
  *
@@ -30,17 +28,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jMenu3 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         jmMenu = new javax.swing.JMenuBar();
         jMCadastrar = new javax.swing.JMenu();
-        jMnCadastroProprietario = new javax.swing.JMenuItem();
-        jMnCadastroVeiculo = new javax.swing.JMenuItem();
-
-        jButton1.setText("jButton1");
-
-        jMenu3.setText("jMenu3");
+        cdProp = new javax.swing.JMenuItem();
+        cdVeiculo = new javax.swing.JMenuItem();
+        sair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,21 +50,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jMCadastrar.setText("Cadastrar");
 
-        jMnCadastroProprietario.setText("Cadastro de proprietários");
-        jMnCadastroProprietario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMnCadastroProprietarioActionPerformed(evt);
-            }
-        });
-        jMCadastrar.add(jMnCadastroProprietario);
+        cdProp.setText("Cadastro de proprietários");
+        jMCadastrar.add(cdProp);
 
-        jMnCadastroVeiculo.setText("Cadastro de veículos");
-        jMnCadastroVeiculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMnCadastroVeiculoActionPerformed(evt);
-            }
-        });
-        jMCadastrar.add(jMnCadastroVeiculo);
+        cdVeiculo.setText("Cadastro de veículos");
+        jMCadastrar.add(cdVeiculo);
+
+        sair.setText("Sair");
+        jMCadastrar.add(sair);
 
         jmMenu.add(jMCadastrar);
 
@@ -87,23 +73,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMnCadastroProprietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnCadastroProprietarioActionPerformed
-        DlgCadastroProprietarios cp = new DlgCadastroProprietarios(this, true);
-        cp.setLocationRelativeTo(null);
-        cp.setVisible(true);
-    }//GEN-LAST:event_jMnCadastroProprietarioActionPerformed
-
-    private void jMnCadastroVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnCadastroVeiculoActionPerformed
-        DlgCadastroVeiculo cv = new DlgCadastroVeiculo(this, true);
-        cv.setLocationRelativeTo(null);
-        cv.setVisible(true);
-    }//GEN-LAST:event_jMnCadastroVeiculoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,14 +113,37 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JMenuItem cdProp;
+    private javax.swing.JMenuItem cdVeiculo;
     private javax.swing.JMenu jMCadastrar;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuItem jMnCadastroProprietario;
-    private javax.swing.JMenuItem jMnCadastroVeiculo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuBar jmMenu;
+    private javax.swing.JMenuItem sair;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the cdProp
+     */
+    public javax.swing.JMenuItem getCdProp() {
+        return cdProp;
+    }
+
+    /**
+     * @return the cdVeiculo
+     */
+    public javax.swing.JMenuItem getCdVeiculo() {
+        return cdVeiculo;
+    }
+
+    /**
+     * @return the sair
+     */
+    public javax.swing.JMenuItem getSair() {
+        return sair;
+    }
+
 }
