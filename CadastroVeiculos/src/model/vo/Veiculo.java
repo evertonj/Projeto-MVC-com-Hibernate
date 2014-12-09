@@ -22,7 +22,7 @@ import org.hibernate.annotations.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Veiculo.finAll", query = "SELECT v FROM veiculo v")
+    @NamedQuery(name = "Veiculo.finAll", query = "SELECT v FROM Veiculo v")
 })
 public class Veiculo {
 

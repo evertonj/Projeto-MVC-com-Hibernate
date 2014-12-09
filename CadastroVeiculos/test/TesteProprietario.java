@@ -20,12 +20,11 @@ public class TesteProprietario {
 
     @Test
     public void adicionaProprietario() {
-        ProprietarioDAOMySQL dao = new ProprietarioDAOMySQL();
-        Proprietario prop = new Proprietario("Everton", "8428-7330", "05902761905",
+          ProprietarioDAOMySQL dao = new ProprietarioDAOMySQL();
+        Proprietario prop = new Proprietario("Everton", "8428-7330", "05902761905", 
                 "evertonspindola@gmail.com");
         Endereco end = new Endereco("88512180", "Jorge Neves Vieira", "93", "Santo Antonio", "SC", "Lages");
-        prop.setEndereco(end);
+       prop.setEndereco(end);
         dao.adicionar(prop);
-
     }
 }

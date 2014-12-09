@@ -20,5 +20,7 @@ public class Principal {
         FrmPrincipal frmPrincipal = new FrmPrincipal();
         new Controller(frmPrincipal);
         frmPrincipal.setVisible(true);
+        
+        
     }
 }
