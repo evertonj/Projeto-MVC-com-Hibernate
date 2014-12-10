@@ -52,7 +52,7 @@ public class ProprietarioDAOMySQL implements IDAO<Proprietario>{
     @Override
     public void remover(Proprietario t) throws SQLException {
         manager.getTransaction().begin();
-        manager.remove(t);
+        manager.remove(manager.getReference(Proprietario.class, t.getId()));
         manager.getTransaction().commit();
     }
 }

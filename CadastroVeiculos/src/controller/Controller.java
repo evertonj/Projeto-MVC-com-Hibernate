@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controller;
 
 import java.awt.event.ActionEvent;
@@ -24,7 +23,8 @@ import view.veiculo.DlgCadastroVeiculo;
  *
  * @author aalano
  */
-public class Controller implements ActionListener{
+public class Controller implements ActionListener {
+
     private FrmPrincipal frmPrincipal;
     private DlgCadastroProprietarios cdProp;
     private DlgCadastroVeiculo cdVeiculo;
@@ -50,66 +50,85 @@ public class Controller implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       if(e.getSource() == this.frmPrincipal.getCdProp()) {
-           this.cdProp.setVisible(true);
-       }
-       if (e.getSource() == this.frmPrincipal.getSair()){
-           System.exit(0);
-       }
-       
-       if(e.getSource() == this.cdProp.getBtSalvar()) {
-           System.out.println("Passou!!!");
-           carregarDadosAddProp();
-           ProprietarioBO propBO = new ProprietarioBO();
-           try {
-               propBO.adicionar(this.prop);
-               JOptionPane.showMessageDialog(cdProp, "Proprietário cadastrado com sucesso!");
-               this.cdProp.dispose();
-           } catch (SQLException ex) {
-               Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-           }
-       }
-           if (e.getSource() == this.cdProp.getBtPesquisar()){
-               Long idProp = Long.valueOf(cdProp.getTfId().getText());
-               try 
-               {
-                   new ProprietarioBO().recuperar(idProp);
-                   setarDadosProp(idProp);
-               } catch (NullPointerException | SQLException ex) {
-                   JOptionPane.showMessageDialog(cdProp, "Proprietário não encontrado tente outro código!");
-                   Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-               }
-           }
-           
-           if (e.getSource() == this.cdProp.getBtAtualizar()){
-               carregarDadosAlterarProp();
-               try {
-                   new ProprietarioBO().alterar(prop);
-                   JOptionPane.showMessageDialog(cdProp, "Dados alterados com sucesso!!!");
-               } catch (SQLException ex) {
-                   Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-               }
-           }
-           if (e.getSource() == this.cdProp.getBtFechar()){
-                cdProp.dispose();
-           }
-           
-           
-       }
-    
+        if (e.getSource() == this.frmPrincipal.getCdProp()) {
+            this.cdProp.setVisible(true);
+        }
+        if (e.getSource() == this.frmPrincipal.getSair()) {
+            System.exit(0);
+        }
+
+        if (e.getSource() == this.cdProp.getBtSalvar()) {
+            System.out.println("Passou!!!");
+            carregarDadosAddProp();
+            ProprietarioBO propBO = new ProprietarioBO();
+            try {
+                propBO.adicionar(this.prop);
+                JOptionPane.showMessageDialog(cdProp, "Proprietário cadastrado com sucesso!");
+                limparCampos();
+                this.cdProp.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (e.getSource() == this.cdProp.getBtPesquisar()) {
+            Long idProp = Long.valueOf(cdProp.getTfId().getText());
+            try {
+                this.prop = new ProprietarioBO().recuperar(idProp);
+                if (prop != null) {
+                    setarDadosProp();
+                    cdProp.getTfId().setEnabled(false);
+                    return;
+                }
+                JOptionPane.showMessageDialog(cdProp, "Proprietário não encontrado tente outro código!");
+            } catch (NullPointerException | SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (e.getSource() == this.cdProp.getBtAtualizar()) {
+            carregarDadosAlterarProp();
+            try {
+                new ProprietarioBO().alterar(prop);
+                limparCampos();
+                JOptionPane.showMessageDialog(cdProp, "Dados alterados com sucesso!!!");
+                cdProp.getTfId().setEnabled(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (e.getSource() == this.cdProp.getBtFechar()) {
+            cdProp.dispose();
+        }
+
+        if (e.getSource() == this.cdProp.getBtExcluir()) {
+            try {
+                new ProprietarioBO().remover(prop);
+                limparCampos();
+                JOptionPane.showMessageDialog(cdProp, "Removido com sucesso!");
+                cdProp.getTfId().setEnabled(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if (e.getSource() == this.cdProp.getBtCancelar()){
+            limparCampos();
+            cdProp.getTfId().setEnabled(true);
+        }
+    }
 
     private void carregarDadosAddProp() {
         this.prop = new Proprietario(cdProp.getTfNome().getText(),
                 cdProp.getTfTelefone().getText(),
                 cdProp.getTfCPF().getText(),
-                cdProp.getTfEmail().getText()            
+                cdProp.getTfEmail().getText()
         );
         prop.setEndereco(new Endereco(cdProp.getTfCEP().getText(),
-                        cdProp.getTfLogradouro().getText(),
-                        cdProp.getTfNumero().getText(),
-                        cdProp.getTfBairro().getText(),
-                        cdProp.getTfEstado().getText(),
-                        cdProp.getTfCidade().getText()));
+                cdProp.getTfLogradouro().getText(),
+                cdProp.getTfNumero().getText(),
+                cdProp.getTfBairro().getText(),
+                cdProp.getTfEstado().getText(),
+                cdProp.getTfCidade().getText()));
     }
 
     private void carregarDadosAlterarProp() {
@@ -118,33 +137,43 @@ public class Controller implements ActionListener{
                 cdProp.getTfNome().getText(),
                 cdProp.getTfTelefone().getText(),
                 cdProp.getTfCPF().getText(),
-                cdProp.getTfEmail().getText()            
+                cdProp.getTfEmail().getText()
         );
         prop.setEndereco(new Endereco(cdProp.getTfCEP().getText(),
-                        cdProp.getTfLogradouro().getText(),
-                        cdProp.getTfNumero().getText(),
-                        cdProp.getTfBairro().getText(),
-                        cdProp.getTfEstado().getText(),
-                        cdProp.getTfCidade().getText()));
+                cdProp.getTfLogradouro().getText(),
+                cdProp.getTfNumero().getText(),
+                cdProp.getTfBairro().getText(),
+                cdProp.getTfEstado().getText(),
+                cdProp.getTfCidade().getText()));
     }
-    
-    private void setarDadosProp(long idProp) {
-        try {
-            // 1. Trazer o Proprietario do DB
-            prop  = new ProprietarioBO().recuperar(idProp);
-            // 2. Carregar os dados do proprieatario nos campos do dialog 
-            cdProp.getTfId().setText(String.valueOf(prop.getId()));
-            cdProp.getTfNome().setText(prop.getNome());
-            cdProp.getTfTelefone().setText(prop.getFone());
-            cdProp.getTfCPF().setText(prop.getCpf());
-            cdProp.getTfBairro().setText(prop.getEndereco().getBairro());
-            cdProp.getTfCEP().setText(prop.getEndereco().getCep());
-            cdProp.getTfCidade().setText(prop.getEndereco().getCidade());
-            cdProp.getTfNumero().setText(prop.getEndereco().getNumero());
-            cdProp.getTfEstado().setText(prop.getEndereco().getEstado());
-            cdProp.getTfLogradouro().setText(prop.getEndereco().getLogradouro());
-        } catch (SQLException ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+    private void setarDadosProp() {
+
+        cdProp.getTfId().setText(String.valueOf(prop.getId()));
+        cdProp.getTfNome().setText(prop.getNome());
+        cdProp.getTfTelefone().setText(prop.getFone());
+        cdProp.getTfCPF().setText(prop.getCpf());
+        cdProp.getTfBairro().setText(prop.getEndereco().getBairro());
+        cdProp.getTfCEP().setText(prop.getEndereco().getCep());
+        cdProp.getTfCidade().setText(prop.getEndereco().getCidade());
+        cdProp.getTfNumero().setText(prop.getEndereco().getNumero());
+        cdProp.getTfEstado().setText(prop.getEndereco().getEstado());
+        cdProp.getTfLogradouro().setText(prop.getEndereco().getLogradouro());
+
+    }
+
+    public void limparCampos() {
+        cdProp.getTfBairro().setText(null);
+        cdProp.getTfCEP().setText(null);
+        cdProp.getTfCPF().setText(null);
+        cdProp.getTfCidade().setText(null);
+        cdProp.getTfEmail().setText(null);
+        cdProp.getTfEstado().setText(null);
+        cdProp.getTfId().setText(null);
+        cdProp.getTfLogradouro().setText(null);
+        cdProp.getTfNome().setText(null);
+        cdProp.getTfNumero().setText(null);
+        cdProp.getTfTelefone().setText(null);
+
     }
 }
