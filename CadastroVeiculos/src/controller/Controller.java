@@ -8,9 +8,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.sql.SQLException;
-import java.util.EventListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,12 +19,13 @@ import model.vo.Veiculo;
 import view.principal.FrmPrincipal;
 import view.proprietario.DlgCadastroProprietarios;
 import view.veiculo.DlgCadastroVeiculo;
+import webService.WebServiceCep;
 
 /**
  *
  * @author aalano
  */
-public class Controller implements ActionListener, KeyListener {
+public class Controller implements ActionListener{
 
     private FrmPrincipal frmPrincipal;
     private DlgCadastroProprietarios cdProp;
@@ -49,7 +48,7 @@ public class Controller implements ActionListener, KeyListener {
         this.cdProp.getBtExcluir().addActionListener(this);
         this.cdProp.getBtNovo().addActionListener(this);
         this.cdProp.getBtPesquisar().addActionListener(this);
-        this.cdProp.getTfCEP().addKeyListener(this);
+        this.cdProp.getBtPesquisarCEP().addActionListener(this);
     }
 
     @Override
@@ -120,7 +119,25 @@ public class Controller implements ActionListener, KeyListener {
             cdProp.getTfId().setEnabled(true);
         }
         
-        
+        if(e.getSource() == this.cdProp.getBtPesquisarCEP()) {
+            String cep = cdProp.getTfCEP().getText();
+            if(cep.length() == 8) {
+                if(!carregarEnderecoWebService(cep)){
+                    JOptionPane.showMessageDialog(cdProp, "Endereço não encontrado. Ou sem conexão com a internet!");
+                }
+                return;
+            }
+            if(cep.length() > 8) {
+                cdProp.getTfCEP().setText(cep.substring(0, 7));
+                if(!carregarEnderecoWebService(cep)){
+                    JOptionPane.showMessageDialog(cdProp,"Endereço não encontrado. Ou sem conexão com a internet!");
+                }
+                return;
+            }
+            if(cep.length() != 8) {
+                JOptionPane.showMessageDialog(cdProp, "O CEP deve conter 8 números.");
+            }
+        }
     }
 
     private void carregarDadosAddProp() {
@@ -183,20 +200,16 @@ public class Controller implements ActionListener, KeyListener {
 
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        if(e.getSource() == this.cdProp.getTfCEP()) {
-            System.out.println("teste");
+    private boolean carregarEnderecoWebService(String cep) {
+        WebServiceCep enderecoEncontrado = WebServiceCep.searchCep(cep);
+        if(enderecoEncontrado.wasSuccessful()) {
+            cdProp.getTfLogradouro().setText(enderecoEncontrado.getLogradouro());
+            cdProp.getTfBairro().setText(enderecoEncontrado.getBairro());
+            cdProp.getTfCidade().setText(enderecoEncontrado.getCidade());
+            cdProp.getTfEstado().setText(enderecoEncontrado.getUf());
+            return true;
+        } else {
+            return false;
         }
     }
 }
