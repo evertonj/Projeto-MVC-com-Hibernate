@@ -221,6 +221,9 @@
         <Component class="javax.swing.JTextField" name="tfEmail">
         </Component>
         <Component class="javax.swing.JTextField" name="tfCEP">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfCEPKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btPesquisar">
           <Properties>

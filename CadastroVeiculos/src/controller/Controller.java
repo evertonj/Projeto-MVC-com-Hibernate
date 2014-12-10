@@ -7,7 +7,10 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
+import java.util.EventListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -23,7 +26,7 @@ import view.veiculo.DlgCadastroVeiculo;
  *
  * @author aalano
  */
-public class Controller implements ActionListener {
+public class Controller implements ActionListener, KeyListener {
 
     private FrmPrincipal frmPrincipal;
     private DlgCadastroProprietarios cdProp;
@@ -46,6 +49,7 @@ public class Controller implements ActionListener {
         this.cdProp.getBtExcluir().addActionListener(this);
         this.cdProp.getBtNovo().addActionListener(this);
         this.cdProp.getBtPesquisar().addActionListener(this);
+        this.cdProp.getTfCEP().addKeyListener(this);
     }
 
     @Override
@@ -115,6 +119,8 @@ public class Controller implements ActionListener {
             limparCampos();
             cdProp.getTfId().setEnabled(true);
         }
+        
+        
     }
 
     private void carregarDadosAddProp() {
@@ -175,5 +181,22 @@ public class Controller implements ActionListener {
         cdProp.getTfNumero().setText(null);
         cdProp.getTfTelefone().setText(null);
 
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getSource() == this.cdProp.getTfCEP()) {
+            System.out.println("teste");
+        }
     }
 }

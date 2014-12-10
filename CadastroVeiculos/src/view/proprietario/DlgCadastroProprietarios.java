@@ -76,6 +76,12 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
 
         jLabel5.setText("E-mail:");
 
+        tfCEP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfCEPKeyReleased(evt);
+            }
+        });
+
         btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417126238_find.png"))); // NOI18N
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417126804_folder_closed-new.png"))); // NOI18N
@@ -232,6 +238,10 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tfCEPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCEPKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfCEPKeyReleased
 
     /**
      * @param args the command line arguments
