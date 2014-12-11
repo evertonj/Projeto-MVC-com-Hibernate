@@ -41,14 +41,14 @@ public class VeiculoDAOMySQL implements IDAO<Veiculo>{
 
     @Override
     public List<Veiculo> listarTodos() throws SQLException {
-        Query query = manager.createNamedQuery("Veiculo.finAll");
+        Query query = manager.createNamedQuery("Veiculo.findAll");
         return query.getResultList();
     }
 
     @Override
     public void remover(Veiculo t) throws SQLException {
         manager.getTransaction().begin();
-        manager.remove(t);
+        manager.remove(manager.getReference(Veiculo.class, t.getId()));
         manager.getTransaction().commit();
     }
     

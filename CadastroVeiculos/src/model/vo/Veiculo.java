@@ -5,7 +5,7 @@
  */
 package model.vo;
 
-import java.util.Calendar;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +22,7 @@ import org.hibernate.annotations.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Veiculo.finAll", query = "SELECT v FROM Veiculo v")
+    @NamedQuery(name = "Veiculo.findAll", query = "SELECT v FROM Veiculo v")
 })
 public class Veiculo {
 
@@ -47,7 +47,7 @@ public class Veiculo {
     private double valor;
     
     @Column(name = "dataCadastro")
-    private Calendar dataCadastro;
+    private String dataCadastro;
     
     @OneToOne(cascade = CascadeType.MERGE)
     private Proprietario proprietario;
@@ -55,7 +55,7 @@ public class Veiculo {
     @Column(name = "tipoVeiculo")
     private EnumTipoVeiculo tipoVeiculo;
 
-    public Veiculo(Long id, String marca, String modelo, int anoDeFabricacao, double valor, Calendar dataCadastro, Proprietario proprietario, EnumTipoVeiculo tipoVeiculo) {
+    public Veiculo(Long id, String marca, String modelo, int anoDeFabricacao, double valor, String dataCadastro, Proprietario proprietario, EnumTipoVeiculo tipoVeiculo) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
@@ -66,7 +66,7 @@ public class Veiculo {
         this.tipoVeiculo = tipoVeiculo;
     }
 
-    public Veiculo(String marca, String modelo, int anoDeFabricacao, double valor, Calendar dataCadastro, Proprietario proprietario, EnumTipoVeiculo tipoVeiculo) {
+    public Veiculo(String marca, String modelo, int anoDeFabricacao, double valor, String dataCadastro, Proprietario proprietario, EnumTipoVeiculo tipoVeiculo) {
         this.marca = marca;
         this.modelo = modelo;
         this.anoDeFabricacao = anoDeFabricacao;
@@ -149,14 +149,14 @@ public class Veiculo {
     /**
      * @return the dataCadastro
      */
-    public Calendar getDataCadastro() {
+    public String getDataCadastro() {
         return dataCadastro;
     }
 
     /**
      * @param dataCadastro the dataCadastro to set
      */
-    public void setDataCadastro(Calendar dataCadastro) {
+    public void setDataCadastro(String dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
@@ -187,6 +187,7 @@ public class Veiculo {
     public void setTipoVeiculo(EnumTipoVeiculo tipoVeiculo) {
         this.tipoVeiculo = tipoVeiculo;
     }
+
     
     
 }

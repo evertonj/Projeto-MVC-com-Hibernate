@@ -6,6 +6,8 @@
 
 package view.principal;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author Dyy#
@@ -29,6 +31,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        lbLogo = new javax.swing.JLabel();
         jmMenu = new javax.swing.JMenuBar();
         jMCadastrar = new javax.swing.JMenu();
         cdProp = new javax.swing.JMenuItem();
@@ -41,14 +44,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(lbLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
+            .addComponent(lbLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
         );
 
         jMCadastrar.setText("Cadastrar");
+        jMCadastrar.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
 
         cdProp.setText("Cadastro de proprietários");
         jMCadastrar.add(cdProp);
@@ -122,6 +126,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMCadastrar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuBar jmMenu;
+    private javax.swing.JLabel lbLogo;
     private javax.swing.JMenuItem sair;
     // End of variables declaration//GEN-END:variables
 
@@ -145,5 +150,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem getSair() {
         return sair;
     }
+
+    public JLabel getLbLogo() {
+        return lbLogo;
+    }
+    
+    
 
 }

@@ -7,17 +7,30 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import model.bo.ProprietarioBO;
+import model.bo.VeiculoBO;
 import model.vo.Endereco;
+import model.vo.EnumTipoVeiculo;
 import model.vo.Proprietario;
 import model.vo.Veiculo;
+import verificacao.Redimensionar;
+import verificacao.SomenteNumero;
 import view.principal.FrmPrincipal;
 import view.proprietario.DlgCadastroProprietarios;
+import view.table.ProprietarioColumnModel;
+import view.table.ProprietarioTableModel;
+import view.table.VeiculoColumnModel;
+import view.table.VeiculoTableModel;
 import view.veiculo.DlgCadastroVeiculo;
 import webService.WebServiceCep;
 
@@ -25,14 +38,14 @@ import webService.WebServiceCep;
  *
  * @author aalano
  */
-public class Controller implements ActionListener{
+public class Controller implements ActionListener, FocusListener{
 
     private FrmPrincipal frmPrincipal;
     private DlgCadastroProprietarios cdProp;
     private DlgCadastroVeiculo cdVeiculo;
     private Proprietario prop;
     private Veiculo veiculo;
-    private Endereco endereco;
+    
 
     public Controller(FrmPrincipal frmPrincipal) {
         this.frmPrincipal = frmPrincipal;
@@ -49,30 +62,75 @@ public class Controller implements ActionListener{
         this.cdProp.getBtNovo().addActionListener(this);
         this.cdProp.getBtPesquisar().addActionListener(this);
         this.cdProp.getBtPesquisarCEP().addActionListener(this);
+        this.cdProp.getTfId().addFocusListener(this);
+        this.cdVeiculo.getBtAtualizar().addActionListener(this);
+        this.cdVeiculo.getBtCancelar().addActionListener(this);
+        this.cdVeiculo.getBtExcluir().addActionListener(this);
+        this.cdVeiculo.getBtNovo().addActionListener(this);
+        this.cdVeiculo.getBtPesquisar().addActionListener(this);
+        this.cdVeiculo.getBtSalvar().addActionListener(this);
+        this.cdVeiculo.getTfID().addFocusListener(this);
+        this.cdVeiculo.getBtFechar().addActionListener(this);
+        this.configurarTabelaProp();
+        this.configurarTabelaVeic();
+        this.cdProp.getTfCPF().setDocument(new SomenteNumero());
+        this.cdProp.getTfTelefone().setDocument(new SomenteNumero());
+        this.cdProp.getTfNumero().setDocument(new SomenteNumero());
+        this.cdVeiculo.getTfValor().setDocument(new SomenteNumero());
+        ImageIcon icone = criarImageIcon("/img/ferrari.jpg", "");
+        this.frmPrincipal.getLbLogo().setIcon(icone);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.frmPrincipal.getCdProp()) {
+            this.cdProp.setSize(Redimensionar.redimensionarTela());
+            this.cdProp.setLocationRelativeTo(null);
             this.cdProp.setVisible(true);
+        }
+        
+        if (e.getSource() == this.frmPrincipal.getCdVeiculo()) {
+            this.cdVeiculo.setSize(Redimensionar.redimensionarTela());
+            this.cdVeiculo.setLocationRelativeTo(null);
+            this.cdVeiculo.setVisible(true);
         }
         if (e.getSource() == this.frmPrincipal.getSair()) {
             System.exit(0);
         }
 
         if (e.getSource() == this.cdProp.getBtSalvar()) {
-            System.out.println("Passou!!!");
             carregarDadosAddProp();
             ProprietarioBO propBO = new ProprietarioBO();
             try {
                 propBO.adicionar(this.prop);
                 JOptionPane.showMessageDialog(cdProp, "Proprietário cadastrado com sucesso!");
-                limparCampos();
-                this.cdProp.dispose();
+                limparCamposProp();
+                cdProp.getBtSalvar().setEnabled(false);
+                //    this.cdProp.dispose();
+                prop = null;
+                configurarTabelaProp();
             } catch (SQLException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+         if (e.getSource() == this.cdVeiculo.getBtSalvar()) {
+             carregarDadosAddVeic();
+            VeiculoBO veiculoBO = new VeiculoBO();
+            try {
+                veiculoBO.adicionar(this.veiculo);
+                JOptionPane.showMessageDialog(cdVeiculo, "Veículo cadastrado com sucesso!");
+                limparCamposVeic();
+                cdVeiculo.getBtSalvar().setEnabled(false);
+                //    this.cdProp.dispose();
+                veiculo = null;
+                configurarTabelaVeic();
+            } catch (SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
         if (e.getSource() == this.cdProp.getBtPesquisar()) {
             Long idProp = Long.valueOf(cdProp.getTfId().getText());
             try {
@@ -80,6 +138,7 @@ public class Controller implements ActionListener{
                 if (prop != null) {
                     setarDadosProp();
                     cdProp.getTfId().setEnabled(false);
+                    cdProp.getBtSalvar().setEnabled(false);
                     return;
                 }
                 JOptionPane.showMessageDialog(cdProp, "Proprietário não encontrado tente outro código!");
@@ -88,13 +147,30 @@ public class Controller implements ActionListener{
             }
         }
 
+         if (e.getSource() == this.cdVeiculo.getBtPesquisar()) {
+            Long idVeiculo = Long.valueOf(cdVeiculo.getTfID().getText());
+            try {
+                this.veiculo = new VeiculoBO().recuperar(idVeiculo);
+                if (veiculo != null) {
+                    setarDadosVeic();
+                    cdVeiculo.getTfID().setEnabled(false);
+                    cdVeiculo.getBtSalvar().setEnabled(false);
+                    return;
+                }
+                JOptionPane.showMessageDialog(cdVeiculo, "Veículo não encontrado tente outro código!");
+            } catch (NullPointerException | SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
         if (e.getSource() == this.cdProp.getBtAtualizar()) {
             carregarDadosAlterarProp();
             try {
                 new ProprietarioBO().alterar(prop);
-                limparCampos();
+                limparCamposProp();
                 JOptionPane.showMessageDialog(cdProp, "Dados alterados com sucesso!!!");
                 cdProp.getTfId().setEnabled(true);
+                configurarTabelaProp();
             } catch (SQLException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -103,41 +179,95 @@ public class Controller implements ActionListener{
             cdProp.dispose();
         }
 
+        if (e.getSource() == this.cdVeiculo.getBtAtualizar()) {
+            carregarDadosAlterarVeic();
+            try {
+                new VeiculoBO().alterar(veiculo);
+                limparCamposVeic();
+                JOptionPane.showMessageDialog(cdProp, "Dados alterados com sucesso!!!");
+                cdVeiculo.getTfID().setEnabled(true);
+                configurarTabelaVeic();
+            } catch (SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+       
+        
+        if (e.getSource() == this.cdProp.getBtFechar()) {
+            cdProp.dispose();
+        }
+        
+        if (e.getSource() == this.cdVeiculo.getBtFechar()) {
+            cdVeiculo.dispose();
+        }
+        
         if (e.getSource() == this.cdProp.getBtExcluir()) {
             try {
                 new ProprietarioBO().remover(prop);
-                limparCampos();
+                limparCamposProp();
                 JOptionPane.showMessageDialog(cdProp, "Removido com sucesso!");
                 cdProp.getTfId().setEnabled(true);
+                configurarTabelaProp();
             } catch (SQLException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
-        if (e.getSource() == this.cdProp.getBtCancelar()){
-            limparCampos();
+        if (e.getSource() == this.cdVeiculo.getBtExcluir()) {
+            try {
+                new VeiculoBO().remover(veiculo);
+                limparCamposVeic();
+                JOptionPane.showMessageDialog(cdVeiculo, "Removido com sucesso!");
+                cdVeiculo.getTfID().setEnabled(true);
+                configurarTabelaVeic();
+            } catch (SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (e.getSource() == this.cdProp.getBtCancelar()) {
+            limparCamposProp();
             cdProp.getTfId().setEnabled(true);
         }
+
+         if (e.getSource() == this.cdVeiculo.getBtCancelar()) {
+            limparCamposVeic();
+            cdVeiculo.getTfID().setEnabled(true);
+        }
+         
+         if (e.getSource() == cdProp.getBtNovo()) {
+            limparCamposProp();
+            cdProp.getBtSalvar().setEnabled(true);
+            cdProp.getTfId().setEnabled(true);
+        }
+         
+         if (e.getSource() == cdVeiculo.getBtNovo()) {
+            limparCamposVeic();
+            cdVeiculo.getBtSalvar().setEnabled(true);
+            cdVeiculo.getTfID().setEnabled(true);
+        }
         
-        if(e.getSource() == this.cdProp.getBtPesquisarCEP()) {
+        if (e.getSource() == this.cdProp.getBtPesquisarCEP()) {
             String cep = cdProp.getTfCEP().getText();
-            if(cep.length() == 8) {
-                if(!carregarEnderecoWebService(cep)){
+            if (cep.length() == 8) {
+                if (!carregarEnderecoWebService(cep)) {
                     JOptionPane.showMessageDialog(cdProp, "Endereço não encontrado. Ou sem conexão com a internet!");
                 }
                 return;
             }
-            if(cep.length() > 8) {
+            if (cep.length() > 8) {
                 cdProp.getTfCEP().setText(cep.substring(0, 7));
-                if(!carregarEnderecoWebService(cep)){
-                    JOptionPane.showMessageDialog(cdProp,"Endereço não encontrado. Ou sem conexão com a internet!");
+                if (!carregarEnderecoWebService(cep)) {
+                    JOptionPane.showMessageDialog(cdProp, "Endereço não encontrado. Ou sem conexão com a internet!");
                 }
                 return;
             }
-            if(cep.length() != 8) {
+            if (cep.length() != 8) {
                 JOptionPane.showMessageDialog(cdProp, "O CEP deve conter 8 números.");
             }
         }
+
+        
     }
 
     private void carregarDadosAddProp() {
@@ -171,7 +301,6 @@ public class Controller implements ActionListener{
     }
 
     private void setarDadosProp() {
-
         cdProp.getTfId().setText(String.valueOf(prop.getId()));
         cdProp.getTfNome().setText(prop.getNome());
         cdProp.getTfTelefone().setText(prop.getFone());
@@ -185,7 +314,7 @@ public class Controller implements ActionListener{
 
     }
 
-    public void limparCampos() {
+    public void limparCamposProp() {
         cdProp.getTfBairro().setText(null);
         cdProp.getTfCEP().setText(null);
         cdProp.getTfCPF().setText(null);
@@ -197,12 +326,25 @@ public class Controller implements ActionListener{
         cdProp.getTfNome().setText(null);
         cdProp.getTfNumero().setText(null);
         cdProp.getTfTelefone().setText(null);
+        cdProp.getBtSalvar().setEnabled(true);
 
     }
 
+    private void limparCamposVeic(){
+        cdVeiculo.getTfDataCadastro().setText(null);
+        cdVeiculo.getTfID().setText(null);
+        cdVeiculo.getTfMarca().setText(null);
+        cdVeiculo.getTfModelo().setText(null);
+        cdVeiculo.getTfValor().setText(null);
+        cdVeiculo.getSpAno().setValue(0);
+        cdVeiculo.getCbProprietario().setSelectedIndex(-1);
+        cdVeiculo.getCbTipo().setSelectedIndex(-1);
+        cdVeiculo.getBtSalvar().setEnabled(true);
+    }
+    
     private boolean carregarEnderecoWebService(String cep) {
         WebServiceCep enderecoEncontrado = WebServiceCep.searchCep(cep);
-        if(enderecoEncontrado.wasSuccessful()) {
+        if (enderecoEncontrado.wasSuccessful()) {
             cdProp.getTfLogradouro().setText(enderecoEncontrado.getLogradouro());
             cdProp.getTfBairro().setText(enderecoEncontrado.getBairro());
             cdProp.getTfCidade().setText(enderecoEncontrado.getCidade());
@@ -210,6 +352,117 @@ public class Controller implements ActionListener{
             return true;
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+        if (e.getSource() == cdProp.getTfId()) {
+            cdProp.getTfId().setDocument(new SomenteNumero());
+        }
+        
+        
+        if (e.getSource() == cdVeiculo.getTfID()) {
+            cdVeiculo.getTfID().setDocument(new SomenteNumero());
+            carregarDadosTipoEdeVeiculo();
+        }
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+        
+    }
+
+    private void carregarDadosAddVeic() {
+        this.veiculo = new Veiculo(cdVeiculo.getTfMarca().getText(),
+                cdVeiculo.getTfModelo().getText(),
+                Integer.valueOf(cdVeiculo.getSpAno().getValue().toString()),
+                Double.valueOf(cdVeiculo.getTfValor().getText()),
+                cdVeiculo.getTfDataCadastro().getText(),
+                (Proprietario) cdVeiculo.getCbProprietario().getSelectedItem(),
+                (EnumTipoVeiculo) cdVeiculo.getCbTipo().getSelectedItem()
+        );
+    }
+
+    private void carregarDadosAlterarVeic() {
+        this.veiculo = new Veiculo(
+                Long.valueOf(cdVeiculo.getTfID().getText()),
+                cdVeiculo.getTfMarca().getText(),
+                cdVeiculo.getTfModelo().getText(),
+                Integer.valueOf(cdVeiculo.getSpAno().getValue().toString()),
+                Double.valueOf(cdVeiculo.getTfValor().getText()),
+                cdVeiculo.getTfDataCadastro().getText(),
+                (Proprietario) cdVeiculo.getCbProprietario().getSelectedItem(),
+                (EnumTipoVeiculo) cdVeiculo.getCbTipo().getSelectedItem()
+        );
+    }
+
+    private void setarDadosVeic(){
+        cdVeiculo.getTfID().setText(String.valueOf(veiculo.getId()));
+        cdVeiculo.getTfMarca().setText(veiculo.getMarca());
+        cdVeiculo.getTfModelo().setText(veiculo.getModelo());
+        cdVeiculo.getTfValor().setText(String.valueOf(veiculo.getValor()));
+        cdVeiculo.getTfDataCadastro().setText(veiculo.getDataCadastro());
+        cdVeiculo.getSpAno().setValue(veiculo.getAnoDeFabricacao());
+        cdVeiculo.getCbProprietario().setSelectedItem(veiculo.getPropriatario());
+        cdVeiculo.getCbTipo().setSelectedItem(veiculo.getTipoVeiculo());
+    }
+
+    private void carregarDadosTipoEdeVeiculo(){
+      //  cdVeiculo.getCbTipo().removeAllItems();
+            cdVeiculo.getCbTipo().setModel(new DefaultComboBoxModel<>(EnumTipoVeiculo.values()));
+            cdVeiculo.getCbTipo().setSelectedIndex(-1);
+        List<Proprietario> lista = null;
+            try {
+                lista = new ProprietarioBO().listarParaTabela();
+            } catch (SQLException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //cdVeiculo.getCbProprietario().removeAllItems();
+            cdVeiculo.getCbProprietario().setModel(new DefaultComboBoxModel(lista.toArray()));
+            cdVeiculo.getCbProprietario().setSelectedIndex(-1);    
+            
+    }
+    
+    private void configurarTabelaProp() {
+        try {
+            this.setListaProprietarios(new ProprietarioBO().listarParaTabela());
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cdProp.getJTabela().setAutoCreateColumnsFromModel(false);
+        java.awt.FontMetrics fm = cdProp.getJTabela().getFontMetrics(cdProp.getJTabela().getFont());
+        cdProp.getJTabela().setColumnModel(new ProprietarioColumnModel(fm));
+        cdProp.getJTabela().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
+    public void setListaProprietarios(java.util.List<Proprietario> proprietarios) {
+        cdProp.getJTabela().setModel(new ProprietarioTableModel(proprietarios));
+    }
+    
+    private void configurarTabelaVeic() {
+        try {
+            this.setListaVeiculos(new VeiculoBO().listarTodos());
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cdVeiculo.getJTabela().setAutoCreateColumnsFromModel(false);
+        java.awt.FontMetrics fm = cdVeiculo.getJTabela().getFontMetrics(cdProp.getJTabela().getFont());
+        cdVeiculo.getJTabela().setColumnModel(new VeiculoColumnModel(fm));
+        cdVeiculo.getJTabela().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
+    public void setListaVeiculos(java.util.List<Veiculo> veiculos) {
+        cdVeiculo.getJTabela().setModel(new VeiculoTableModel(veiculos));
+    }
+    
+    public ImageIcon criarImageIcon(String caminho, String descricao) {
+        java.net.URL imgURL = getClass().getResource(caminho);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, descricao);
+        } else {
+            System.err.println("Não foi possível carregar o arquivo de imagem: " + caminho);
+            return null;
         }
     }
 }
