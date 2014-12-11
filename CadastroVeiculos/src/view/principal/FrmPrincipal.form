@@ -6,7 +6,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMCadastrar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cadastrar"/>
+            <Property name="text" type="java.lang.String" value="Gerenciar"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="18" style="1"/>
             </Property>
@@ -14,12 +14,12 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="cdProp">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cadastro de propriet&#xe1;rios"/>
+                <Property name="text" type="java.lang.String" value="Propriet&#xe1;rios"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="cdVeiculo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cadastro de ve&#xed;culos"/>
+                <Property name="text" type="java.lang.String" value="Ve&#xed;culos"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="sair">

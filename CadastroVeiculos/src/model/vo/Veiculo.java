@@ -5,7 +5,7 @@
  */
 package model.vo;
 
-import java.util.Objects;
+import java.util.Calendar;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,7 +47,7 @@ public class Veiculo {
     private double valor;
     
     @Column(name = "dataCadastro")
-    private String dataCadastro;
+    private Calendar dataCadastro;
     
     @OneToOne(cascade = CascadeType.MERGE)
     private Proprietario proprietario;
@@ -55,7 +55,7 @@ public class Veiculo {
     @Column(name = "tipoVeiculo")
     private EnumTipoVeiculo tipoVeiculo;
 
-    public Veiculo(Long id, String marca, String modelo, int anoDeFabricacao, double valor, String dataCadastro, Proprietario proprietario, EnumTipoVeiculo tipoVeiculo) {
+    public Veiculo(Long id, String marca, String modelo, int anoDeFabricacao, double valor, Calendar dataCadastro, Proprietario proprietario, EnumTipoVeiculo tipoVeiculo) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
@@ -66,7 +66,7 @@ public class Veiculo {
         this.tipoVeiculo = tipoVeiculo;
     }
 
-    public Veiculo(String marca, String modelo, int anoDeFabricacao, double valor, String dataCadastro, Proprietario proprietario, EnumTipoVeiculo tipoVeiculo) {
+    public Veiculo(String marca, String modelo, int anoDeFabricacao, double valor, Calendar dataCadastro, Proprietario proprietario, EnumTipoVeiculo tipoVeiculo) {
         this.marca = marca;
         this.modelo = modelo;
         this.anoDeFabricacao = anoDeFabricacao;
@@ -149,14 +149,14 @@ public class Veiculo {
     /**
      * @return the dataCadastro
      */
-    public String getDataCadastro() {
+    public Calendar getDataCadastro() {
         return dataCadastro;
     }
 
     /**
      * @param dataCadastro the dataCadastro to set
      */
-    public void setDataCadastro(String dataCadastro) {
+    public void setDataCadastro(Calendar dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 

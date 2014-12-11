@@ -85,6 +85,8 @@ public class DlgCadastroVeiculo extends javax.swing.JDialog {
 
         spAno.setValue(2000);
 
+        tfDataCadastro.setEditable(false);
+
         btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417126238_find.png"))); // NOI18N
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));

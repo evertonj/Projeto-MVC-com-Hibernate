@@ -51,13 +51,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addComponent(lbLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
         );
 
-        jMCadastrar.setText("Cadastrar");
+        jMCadastrar.setText("Gerenciar");
         jMCadastrar.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
 
-        cdProp.setText("Cadastro de proprietários");
+        cdProp.setText("Proprietários");
         jMCadastrar.add(cdProp);
 
-        cdVeiculo.setText("Cadastro de veículos");
+        cdVeiculo.setText("Veículos");
         jMCadastrar.add(cdVeiculo);
 
         sair.setText("Sair");

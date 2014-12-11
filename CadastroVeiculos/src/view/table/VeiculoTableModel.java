@@ -8,6 +8,7 @@
  */
 package view.table;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.vo.Veiculo;
@@ -53,7 +54,7 @@ public class VeiculoTableModel extends AbstractTableModel {
             case 6:
                 return veiculo.getPropriatario();
             case 7:
-                return veiculo.getDataCadastro();
+                return new SimpleDateFormat("dd/MM/yyyy").format(veiculo.getDataCadastro().getTime());
         }
         return null;
     }

@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,12 +75,16 @@ public class Controller implements ActionListener, FocusListener{
         this.cdVeiculo.getBtFechar().addActionListener(this);
         this.configurarTabelaProp();
         this.configurarTabelaVeic();
+        this.carregarDadosTipoEdeVeiculo();
         this.cdProp.getTfCPF().setDocument(new SomenteNumero());
         this.cdProp.getTfTelefone().setDocument(new SomenteNumero());
         this.cdProp.getTfNumero().setDocument(new SomenteNumero());
         this.cdVeiculo.getTfValor().setDocument(new SomenteNumero());
-        ImageIcon icone = criarImageIcon("/img/ferrari.jpg", "");
+        ImageIcon icone = criarImageIcon("/img/Ferrari-Badge.jpg", "");
         this.frmPrincipal.getLbLogo().setIcon(icone);
+        this.cdVeiculo.getTfDataCadastro().setText(
+                new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
+        
     }
 
     @Override
@@ -194,10 +200,12 @@ public class Controller implements ActionListener, FocusListener{
        
         
         if (e.getSource() == this.cdProp.getBtFechar()) {
+            limparCamposProp();
             cdProp.dispose();
         }
         
         if (e.getSource() == this.cdVeiculo.getBtFechar()) {
+            limparCamposVeic();
             cdVeiculo.dispose();
         }
         
@@ -305,6 +313,7 @@ public class Controller implements ActionListener, FocusListener{
         cdProp.getTfNome().setText(prop.getNome());
         cdProp.getTfTelefone().setText(prop.getFone());
         cdProp.getTfCPF().setText(prop.getCpf());
+        cdProp.getTfEmail().setText(prop.getEmail());
         cdProp.getTfBairro().setText(prop.getEndereco().getBairro());
         cdProp.getTfCEP().setText(prop.getEndereco().getCep());
         cdProp.getTfCidade().setText(prop.getEndereco().getCidade());
@@ -378,7 +387,7 @@ public class Controller implements ActionListener, FocusListener{
                 cdVeiculo.getTfModelo().getText(),
                 Integer.valueOf(cdVeiculo.getSpAno().getValue().toString()),
                 Double.valueOf(cdVeiculo.getTfValor().getText()),
-                cdVeiculo.getTfDataCadastro().getText(),
+                Calendar.getInstance(),
                 (Proprietario) cdVeiculo.getCbProprietario().getSelectedItem(),
                 (EnumTipoVeiculo) cdVeiculo.getCbTipo().getSelectedItem()
         );
@@ -391,25 +400,25 @@ public class Controller implements ActionListener, FocusListener{
                 cdVeiculo.getTfModelo().getText(),
                 Integer.valueOf(cdVeiculo.getSpAno().getValue().toString()),
                 Double.valueOf(cdVeiculo.getTfValor().getText()),
-                cdVeiculo.getTfDataCadastro().getText(),
+                Calendar.getInstance(),
                 (Proprietario) cdVeiculo.getCbProprietario().getSelectedItem(),
                 (EnumTipoVeiculo) cdVeiculo.getCbTipo().getSelectedItem()
         );
     }
 
     private void setarDadosVeic(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         cdVeiculo.getTfID().setText(String.valueOf(veiculo.getId()));
         cdVeiculo.getTfMarca().setText(veiculo.getMarca());
         cdVeiculo.getTfModelo().setText(veiculo.getModelo());
         cdVeiculo.getTfValor().setText(String.valueOf(veiculo.getValor()));
-        cdVeiculo.getTfDataCadastro().setText(veiculo.getDataCadastro());
+        cdVeiculo.getTfDataCadastro().setText(new SimpleDateFormat("dd/MM/yyyy").format(veiculo.getDataCadastro().getTime()));
         cdVeiculo.getSpAno().setValue(veiculo.getAnoDeFabricacao());
         cdVeiculo.getCbProprietario().setSelectedItem(veiculo.getPropriatario());
         cdVeiculo.getCbTipo().setSelectedItem(veiculo.getTipoVeiculo());
     }
 
     private void carregarDadosTipoEdeVeiculo(){
-      //  cdVeiculo.getCbTipo().removeAllItems();
             cdVeiculo.getCbTipo().setModel(new DefaultComboBoxModel<>(EnumTipoVeiculo.values()));
             cdVeiculo.getCbTipo().setSelectedIndex(-1);
         List<Proprietario> lista = null;
@@ -418,7 +427,6 @@ public class Controller implements ActionListener, FocusListener{
             } catch (SQLException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
-            //cdVeiculo.getCbProprietario().removeAllItems();
             cdVeiculo.getCbProprietario().setModel(new DefaultComboBoxModel(lista.toArray()));
             cdVeiculo.getCbProprietario().setSelectedIndex(-1);    
             
