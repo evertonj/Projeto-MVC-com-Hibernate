@@ -111,7 +111,7 @@ public class DlgCadastroVeiculo extends javax.swing.JDialog {
         btCancelar.setToolTipText("Cancelar");
         jPanel2.add(btCancelar);
 
-        btFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417127410_Erase.png"))); // NOI18N
+        btFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sair.png"))); // NOI18N
         btFechar.setToolTipText("Fechar");
         jPanel2.add(btFechar);
 
@@ -171,7 +171,7 @@ public class DlgCadastroVeiculo extends javax.swing.JDialog {
                         .addComponent(cbProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 7942, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

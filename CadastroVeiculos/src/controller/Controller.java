@@ -79,8 +79,9 @@ public class Controller implements ActionListener, FocusListener{
         this.cdProp.getTfCPF().setDocument(new SomenteNumero());
         this.cdProp.getTfTelefone().setDocument(new SomenteNumero());
         this.cdProp.getTfNumero().setDocument(new SomenteNumero());
+        this.cdProp.getTfCEP().setDocument(new SomenteNumero());
         this.cdVeiculo.getTfValor().setDocument(new SomenteNumero());
-        ImageIcon icone = criarImageIcon("/img/Ferrari-Badge.jpg", "");
+        ImageIcon icone = criarImageIcon("/img/ferrari.jpg", "");
         this.frmPrincipal.getLbLogo().setIcon(icone);
         this.cdVeiculo.getTfDataCadastro().setText(
                 new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
@@ -182,6 +183,7 @@ public class Controller implements ActionListener, FocusListener{
             }
         }
         if (e.getSource() == this.cdProp.getBtFechar()) {
+            carregarDadosTipoEdeVeiculo();
             cdProp.dispose();
         }
 

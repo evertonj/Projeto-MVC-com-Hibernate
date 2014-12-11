@@ -104,7 +104,7 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
 
         btPesquisarCEP.setText("Pesquisar ");
 
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417126804_folder_closed-new.png"))); // NOI18N
         jPanel2.add(btNovo);
@@ -121,7 +121,7 @@ public class DlgCadastroProprietarios extends javax.swing.JDialog {
         btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417127323_cancel.png"))); // NOI18N
         jPanel2.add(btCancelar);
 
-        btFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1417127410_Erase.png"))); // NOI18N
+        btFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sair.png"))); // NOI18N
         jPanel2.add(btFechar);
 
         JTabela.setModel(new javax.swing.table.DefaultTableModel(
